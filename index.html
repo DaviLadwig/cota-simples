@@ -24,13 +24,13 @@
         </div>
     </div>
 
-     <!--LOGO NO PDF-->
+    <!--LOGO NO PDF-->
     <section class="client-section">
         <h3>Identidade da Empresa <span>(opcional)</span></h3>
 
         <input type="file" id="logoEmpresa" accept="image/*">
     </section>
-    
+
     <!--DADO DO CLIENTE-->
     <section class="client-section">
         <h3>Dados do Cliente <span>(opcional)</span></h3>
@@ -110,9 +110,10 @@
         </div>
     </div>
 
-    <div id="pdf-layout" style="display:none;"></div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="script.js"></script>
+    <div id="pdf-layout" class="pdf-render-area"></div>
+
 </body>
 
 </html>
