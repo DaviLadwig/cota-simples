@@ -243,11 +243,17 @@ input:focus {
     background: #FECACA;
 }
 
+/* Botão remover - MOBILE */
 @media (max-width: 768px) {
-  .btn {
-    width: 100%;
-    padding: 16px;
+  .btn-danger {
+    width: 36px;
+    height: 36px;
+    padding: 0;
     font-size: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 
