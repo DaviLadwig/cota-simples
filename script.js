@@ -10,15 +10,14 @@ function addRow() {
     const row = document.createElement("tr");
 
     row.innerHTML = `
-        <td><input type="text" placeholder="Ex: Desenvolvimento de site"></td>
-        <td><input type="number" min="1" value="1" oninput="calculateTotal()"></td>
-        <td><input type="number" min="0" value="0" oninput="calculateTotal()"></td>
-        <td><input type="number" min="0" max="100" value="0" oninput="calculateTotal()"></td>
-        <td class="subtotal">R$ 0,00</td>
-        <td>
-            <button class="btn btn-danger" onclick="removeRow(this)">✕</button>
-        </td>
-    `;
+  <td data-label="Produto"><input type="text"></td>
+  <td data-label="Qtd"><input type="number"></td>
+  <td data-label="Valor"><input type="number"></td>
+  <td data-label="Desc (%)"><input type="number"></td>
+  <td data-label="Subtotal" class="subtotal">R$ 0,00</td>
+  <td data-label="Ação"><button class="btn btn-danger">✕</button></td>
+`;
+
 
     tbody.appendChild(row);
 }

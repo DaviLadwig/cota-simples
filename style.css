@@ -243,6 +243,14 @@ input:focus {
     background: #FECACA;
 }
 
+@media (max-width: 768px) {
+  .btn {
+    width: 100%;
+    padding: 16px;
+    font-size: 16px;
+  }
+}
+
 /* ========================
    RODAPÉ / TOTAL
 ======================== */
@@ -440,4 +448,41 @@ input:focus {
     padding: 30px;
     display: none;
     z-index: 9999;
+}
+
+
+/*
+======================
+REPSONSIVIDADE CELULAR
+======================
+*/
+
+@media (max-width: 768px) {
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tbody tr {
+    margin-bottom: 16px;
+    padding: 12px;
+    border-radius: 12px;
+    background: #FAFAFA;
+  }
+
+  td {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border: none;
+  }
+
+  td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #4C1D95;
+  }
 }
