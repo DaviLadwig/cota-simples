@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cota Simples</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!--CABEÇALHO-->
+    <div class="header">
+        <div class="header-left">
+            <img src="images/Orça-removebg-preview.png" alt="Logo">
+        </div>
+
+        <div class="header-right">
+            <h2>Davi Ladwig</h2>
+            <p>daviladwigdev@gmail.com</p>
+            <p>(98) 99171-3898</p>
+            <p>www.daviladwig.com.br</p>
+        </div>
+    </div>
+
+     <!--LOGO NO PDF-->
+    <section class="client-section">
+        <h3>Identidade da Empresa <span>(opcional)</span></h3>
+
+        <input type="file" id="logoEmpresa" accept="image/*">
+    </section>
+    
+    <!--DADO DO CLIENTE-->
+    <section class="client-section">
+        <h3>Dados do Cliente <span>(opcional)</span></h3>
+
+        <div class="client-grid">
+            <input type="text" id="clienteNome" placeholder="Nome do cliente">
+            <input type="text" id="clienteEmpresa" placeholder="Empresa">
+            <input type="email" id="clienteEmail" placeholder="E-mail">
+            <input type="text" id="clienteTelefone" placeholder="Telefone">
+        </div>
+
+        <textarea id="clienteObs" placeholder="Observações (opcional)"></textarea>
+    </section>
+
+    <!--VALIDAÇÃO-->
+    <section class="validade-section">
+        <h3>Validade & Assinatura <span>(opcional)</span></h3>
+
+        <div class="validade-grid">
+            <div>
+                <label>Validade do orçamento</label>
+                <input type="date" id="validadeOrcamento">
+            </div>
+
+            <div>
+                <label>Responsável / Assinatura</label>
+                <input type="text" id="assinaturaNome" placeholder="Ex: João Silva">
+            </div>
+        </div>
+
+        <textarea id="mensagemFinal"
+            placeholder="Mensagem final (ex: orçamento válido mediante aceite, prazos, observações finais)"></textarea>
+    </section>
+
+
+    <!--ORÇAMENTO-->
+    <hr class="divider">
+
+    <div class="container" id="pdf-content">
+        <h1>Orçamento</h1>
+
+        <table class="table" id="productTable">
+            <thead>
+                <tr>
+                    <th>Produto / Serviço</th>
+                    <th>Qtd</th>
+                    <th>Valor Unitário</th>
+                    <th>Desconto (%)</th>
+                    <th>Subtotal</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Produtos dinâmicos -->
+            </tbody>
+        </table>
+
+        <br>
+        <button class="btn" onclick="addRow()">+ Adicionar Produto</button>
+
+        <div class="footer">
+            <div>
+                <label>Frete (opcional)</label>
+                <input type="number" id="frete" value="0" oninput="calculateTotal()">
+            </div>
+
+            <div class="summary">
+                <div>
+                    <span>Total</span>
+                    <strong>R$ <span id="total">0,00</span></strong>
+                </div>
+                <button class="btn" style="width:100%; margin-top:15px;" onclick="downloadPDF()">
+                    Baixar PDF
+                </button>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="pdf-layout" style="display:none;"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
