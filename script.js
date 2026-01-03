@@ -155,7 +155,15 @@ async function downloadPDF() {
     doc.text(`Validade: ${validadeOrcamento.value || "-"}`, 15, y + 6);
     doc.text(`Responsável: ${assinaturaNome.value || "-"}`, 15, y + 12);
 
-    doc.save(`orcamento-${Date.now()}.pdf`);
+    const nomeDocumentoInput = document.getElementById("nomeDocumento")?.value?.trim();
+
+    const nomeArquivo = nomeDocumentoInput
+        ? nomeDocumentoInput.replace(/[\\/:*?"<>|]/g, "") // remove caracteres inválidos
+        : `orcamento-${Date.now()}`;
+
+    doc.save(`${nomeArquivo}.pdf`);
+
+    
 }
 
 
@@ -198,6 +206,8 @@ function buildPDFLayout() {
                 <p><b>${subtotal}</b></p>
             </div>
         `;
+
+        
     });
 
     const total = document.getElementById("total")?.innerText || "0,00";
@@ -283,3 +293,10 @@ function num(v) {
     return parseFloat(v) || 0;
 }
 
+let logoAtiva = true;
+
+document.getElementById("removerLogo").addEventListener("click", () => {
+    logoAtiva = false;
+    document.getElementById("logoEmpresa").style.display = "none";
+    document.getElementById("removerLogo").style.display = "none";
+});
