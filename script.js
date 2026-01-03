@@ -69,10 +69,11 @@ async function downloadPDF() {
 
     const totalTexto = document.getElementById("total").innerText;
 
-    const clienteNome = document.getElementById("clienteNome")?.value || "-";
-    const clienteEmpresa = document.getElementById("clienteEmpresa")?.value || "-";
-    const clienteEmail = document.getElementById("clienteEmail")?.value || "-";
-    const clienteTelefone = document.getElementById("clienteTelefone")?.value || "-";
+    const clienteNome = document.getElementById("clienteNome")?.value?.trim() || "-";
+    const clienteEmpresa = document.getElementById("clienteEmpresa")?.value?.trim() || "-";
+    const clienteEmail = document.getElementById("clienteEmail")?.value?.trim() || "-";
+    const clienteTelefone = document.getElementById("clienteTelefone")?.value?.trim() || "-";
+
 
 
     // ===== TÍTULO =====
@@ -97,12 +98,12 @@ async function downloadPDF() {
         telefone: clienteTelefone.value || "-"
     };
 
-    doc.text(`Nome: ${cliente.nome}`, 18, y + 6);
-    doc.text(`Empresa: ${cliente.empresa}`, 18, y + 12);
-    doc.text(`Email: ${cliente.email}`, 110, y + 6);
-    doc.text(`Telefone: ${cliente.telefone}`, 110, y + 12);
+    doc.text(`Nome: ${clienteNome}`, 18, y + 6);
+    doc.text(`Empresa: ${clienteEmpresa}`, 18, y + 12);
+    doc.text(`Email: ${clienteEmail}`, 110, y + 6);
+    doc.text(`Telefone: ${clienteTelefone}`, 110, y + 12);
 
-    y += 35;
+    y += 30;
 
     // ===== PRODUTOS =====
     doc.setFontSize(14);
@@ -136,12 +137,17 @@ async function downloadPDF() {
         y = 20;
     }
 
+    y += 10;
+
     doc.setFillColor(109, 40, 217);
-    doc.roundedRect(15, y, 180, 15, 5, 5, "F");
+    doc.roundedRect(15, y, 180, 16, 6, 6, "F");
+
     doc.setTextColor(255);
     doc.setFontSize(14);
-    doc.text(`TOTAL: R$ ${totalTexto}`, 105, y + 10, { align: "center" });
+    doc.text(`TOTAL: R$ ${totalTexto}`, 105, y + 11, { align: "center" });
+
     doc.setTextColor(0);
+    y += 22; //  espaço REAL após o total
 
 
     // ===== VALIDADE =====
