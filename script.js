@@ -10,14 +10,21 @@ function addRow() {
     const row = document.createElement("tr");
 
     row.innerHTML = `
-  <td data-label="Produto"><input type="text"></td>
-  <td data-label="Qtd"><input type="number"></td>
-  <td data-label="Valor"><input type="number"></td>
-  <td data-label="Desc (%)"><input type="number"></td>
-  <td data-label="Subtotal" class="subtotal">R$ 0,00</td>
-  <td data-label="Ação"><button class="btn btn-danger">✕</button></td>
-`;
+        <td data-label="Produto"><input type="text"></td>
+        <td data-label="Qtd"><input type="number"></td>
+        <td data-label="Valor"><input type="number"></td>
+        <td data-label="Desc (%)"><input type="number"></td>
+        <td data-label="Subtotal" class="subtotal">R$ 0,00</td>
+        <td data-label="Ação">
+            <button class="btn btn-danger" onclick="removeRow(this)">✕</button>
+        </td>
+    `;
 
+    // 🔥 EVENTOS PARA MOBILE
+    row.querySelectorAll("input").forEach(input => {
+        input.addEventListener("input", calculateTotal);
+        input.addEventListener("keyup", calculateTotal);
+    });
 
     tbody.appendChild(row);
 }
@@ -32,13 +39,12 @@ function calculateTotal() {
     let total = 0;
 
     rows.forEach(row => {
-        const qtd = parseFloat(row.children[1].querySelector("input").value) || 0;
-        const valor = parseFloat(row.children[2].querySelector("input").value) || 0;
-        const desconto = parseFloat(row.children[3].querySelector("input").value) || 0;
+        const qtd = num(row.children[1].querySelector("input").value);
+        const valor = num(row.children[2].querySelector("input").value);
+        const desconto = num(row.children[3].querySelector("input").value);
 
         const bruto = qtd * valor;
-        const descontoValor = bruto * (desconto / 100);
-        const subtotal = bruto - descontoValor;
+        const subtotal = bruto - (bruto * desconto / 100);
 
         row.querySelector(".subtotal").innerText =
             `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
@@ -46,12 +52,13 @@ function calculateTotal() {
         total += subtotal;
     });
 
-    const frete = parseFloat(document.getElementById("frete").value) || 0;
+    const frete = num(document.getElementById("frete")?.value);
     total += frete;
 
     document.getElementById("total").innerText =
         total.toFixed(2).replace('.', ',');
 }
+
 
 
 async function downloadPDF() {
@@ -60,18 +67,13 @@ async function downloadPDF() {
 
     let y = 20;
 
-    // LOGO
-    // ===== LOGO CENTRALIZADA =====
-    const logo = localStorage.getItem("logoEmpresa");
+    const totalTexto = document.getElementById("total").innerText;
 
-    if (logo) {
-        const logoWidth = 60; // largura ideal
-        const pageWidth = doc.internal.pageSize.getWidth();
-        const xCenter = (pageWidth - logoWidth) / 2;
+    const clienteNome = document.getElementById("clienteNome")?.value || "-";
+    const clienteEmpresa = document.getElementById("clienteEmpresa")?.value || "-";
+    const clienteEmail = document.getElementById("clienteEmail")?.value || "-";
+    const clienteTelefone = document.getElementById("clienteTelefone")?.value || "-";
 
-        doc.addImage(logo, "PNG", xCenter, y, logoWidth, 0);
-        y += 30;
-    }
 
     // ===== TÍTULO =====
     doc.setFontSize(20);
@@ -135,14 +137,12 @@ async function downloadPDF() {
     }
 
     doc.setFillColor(109, 40, 217);
-    doc.setFillColor(109, 40, 217);
     doc.roundedRect(15, y, 180, 15, 5, 5, "F");
     doc.setTextColor(255);
     doc.setFontSize(14);
-    doc.text(`TOTAL: R$ ${total.innerText}`, 105, y + 10, { align: "center" });
-
-    y += 25;
+    doc.text(`TOTAL: R$ ${totalTexto}`, 105, y + 10, { align: "center" });
     doc.setTextColor(0);
+
 
     // ===== VALIDADE =====
     doc.setFontSize(11);
@@ -271,4 +271,9 @@ window.addEventListener("DOMContentLoaded", () => {
         logoInput.parentNode.insertBefore(preview, logoInput);
     }
 });
+
+
+function num(v) {
+    return parseFloat(v) || 0;
+}
 
