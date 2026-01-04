@@ -300,3 +300,6 @@ document.getElementById("removerLogo").addEventListener("click", () => {
     document.getElementById("logoEmpresa").style.display = "none";
     document.getElementById("removerLogo").style.display = "none";
 });
+
+
+ document.getElementById("year").textContent = new Date().getFullYear();
