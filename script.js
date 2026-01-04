@@ -304,25 +304,27 @@ document.getElementById("removerLogo").addEventListener("click", () => {
 
 document.getElementById("year").textContent = new Date().getFullYear();
 
-window.addEventListener("load", () => {
+document.addEventListener("DOMContentLoaded", () => {
     const splash = document.getElementById("splash");
+    if (!splash) return;
 
-    // Já entrou antes?
     const jaEntrou = localStorage.getItem("app_loaded");
 
+    // Se já entrou antes, remove imediatamente
     if (jaEntrou) {
         splash.remove();
         return;
     }
 
-    // Primeira vez
+    // Primeira entrada
     setTimeout(() => {
         splash.style.opacity = "0";
-        splash.style.pointerEvents = "none";
+        splash.style.transition = "opacity 0.5s ease";
 
         setTimeout(() => {
             splash.remove();
             localStorage.setItem("app_loaded", "true");
         }, 500);
-    }, 1400);
+
+    }, 1200); // tempo visível da animação
 });
