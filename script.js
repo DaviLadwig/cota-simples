@@ -92,11 +92,13 @@ async function downloadPDF() {
     doc.roundedRect(15, y, 180, 25, 5, 5);
 
     const cliente = {
-        nome: clienteNome.value || "-",
-        empresa: clienteEmpresa.value || "-",
-        email: clienteEmail.value || "-",
-        telefone: clienteTelefone.value || "-"
+        nome: clienteNome,
+        empresa: clienteEmpresa,
+        email: clienteEmail,
+        telefone: clienteTelefone
     };
+
+
 
     doc.text(`Nome: ${clienteNome}`, 18, y + 6);
     doc.text(`Empresa: ${clienteEmpresa}`, 18, y + 12);
@@ -304,27 +306,3 @@ document.getElementById("removerLogo").addEventListener("click", () => {
 
 document.getElementById("year").textContent = new Date().getFullYear();
 
-document.addEventListener("DOMContentLoaded", () => {
-    const splash = document.getElementById("splash");
-    if (!splash) return;
-
-    const jaEntrou = localStorage.getItem("app_loaded");
-
-    // Se já entrou antes, remove imediatamente
-    if (jaEntrou) {
-        splash.remove();
-        return;
-    }
-
-    // Primeira entrada
-    setTimeout(() => {
-        splash.style.opacity = "0";
-        splash.style.transition = "opacity 0.5s ease";
-
-        setTimeout(() => {
-            splash.remove();
-            localStorage.setItem("app_loaded", "true");
-        }, 500);
-
-    }, 1200); // tempo visível da animação
-});
