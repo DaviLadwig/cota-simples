@@ -392,7 +392,7 @@ input:focus {
 .contact-section {
     margin-top: 40px;
     padding: 30px;
-    background: #FACC15;
+    background: #FAFAFA;
     border-radius: 16px;
     text-align: center;
     border: 1px solid #E5E7EB;
@@ -404,14 +404,8 @@ input:focus {
     font-size: 18px;
 }
 
-.contact-icons {
-    display: flex;
-    justify-content: center;
-    gap: 24px;
-}
-
 .contact-icons a {
-    font-size: 28px;
+    font-size: 24px;
     width: 56px;
     height: 56px;
     display: flex;
@@ -423,6 +417,11 @@ input:focus {
     text-decoration: none;
     transition: all 0.25s ease;
 }
+
+.contact-icons a i {
+    line-height: 1;
+}
+
 
 .contact-icons a:hover {
     background: #4C1D95;
