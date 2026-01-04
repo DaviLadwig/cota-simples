@@ -163,7 +163,7 @@ async function downloadPDF() {
 
     doc.save(`${nomeArquivo}.pdf`);
 
-    
+
 }
 
 
@@ -207,7 +207,7 @@ function buildPDFLayout() {
             </div>
         `;
 
-        
+
     });
 
     const total = document.getElementById("total")?.innerText || "0,00";
@@ -302,4 +302,17 @@ document.getElementById("removerLogo").addEventListener("click", () => {
 });
 
 
- document.getElementById("year").textContent = new Date().getFullYear();
+document.getElementById("year").textContent = new Date().getFullYear();
+
+window.addEventListener("load", () => {
+    const splash = document.getElementById("splash");
+
+    setTimeout(() => {
+        splash.style.opacity = "0";
+        splash.style.pointerEvents = "none";
+
+        setTimeout(() => {
+            splash.remove();
+        }, 500);
+    }, 1200); // tempo de exibição
+});
