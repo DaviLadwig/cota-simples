@@ -307,12 +307,22 @@ document.getElementById("year").textContent = new Date().getFullYear();
 window.addEventListener("load", () => {
     const splash = document.getElementById("splash");
 
+    // Já entrou antes?
+    const jaEntrou = localStorage.getItem("app_loaded");
+
+    if (jaEntrou) {
+        splash.remove();
+        return;
+    }
+
+    // Primeira vez
     setTimeout(() => {
         splash.style.opacity = "0";
         splash.style.pointerEvents = "none";
 
         setTimeout(() => {
             splash.remove();
+            localStorage.setItem("app_loaded", "true");
         }, 500);
-    }, 1200); // tempo de exibição
+    }, 1400);
 });
