@@ -39,41 +39,37 @@ h1 {
 ======================== */
 .app-header {
     width: 100%;
-    padding: 24px 16px 20px;
-    background: linear-gradient(180deg, #6a2bd9, #5a23c9);
-    display: flex;
-    justify-content: center;
-}
-
-.header-content {
+    padding: 32px 16px 24px;
+    background: transparent; /* mantém o fundo padrão do app */
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 6px;
+    gap: 10px;
 }
 
 .app-logo {
-    max-width: 440px;
+    width: 430px;
+    max-width: 100%;
     height: auto;
 }
 
 .app-slogan {
-    font-size: 0.95rem;
+    font-size: 1rem;
     font-weight: 500;
-    color: #e5e7ff;
-    letter-spacing: 0.4px;
+    color: #ffffff;
     text-align: center;
+    letter-spacing: 0.4px;
 }
+
 @media (max-width: 480px) {
     .app-logo {
-        max-width: 120px;
+        width: 90%;
     }
 
     .app-slogan {
-        font-size: 0.85rem;
+        font-size: 0.9rem;
     }
 }
-
 
 /* ========================
    TABELA
