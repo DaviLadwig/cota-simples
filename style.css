@@ -35,6 +35,47 @@ h1 {
 }
 
 /* ========================
+   CABEÇALHO
+======================== */
+.app-header {
+    width: 100%;
+    padding: 24px 16px 20px;
+    background: linear-gradient(180deg, #6a2bd9, #5a23c9);
+    display: flex;
+    justify-content: center;
+}
+
+.header-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.app-logo {
+    max-width: 440px;
+    height: auto;
+}
+
+.app-slogan {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #e5e7ff;
+    letter-spacing: 0.4px;
+    text-align: center;
+}
+@media (max-width: 480px) {
+    .app-logo {
+        max-width: 120px;
+    }
+
+    .app-slogan {
+        font-size: 0.85rem;
+    }
+}
+
+
+/* ========================
    TABELA
 ======================== */
 .table {
@@ -292,37 +333,6 @@ input:focus {
 .summary strong {
     font-size: 22px;
     color: #4C1D95;
-}
-
-/* ========================
-   CABEÇALHO
-======================== */
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 24px;
-}
-
-.header-left img {
-    max-width: 360px;
-    height: auto;
-}
-
-.header-right {
-    text-align: right;
-    font-size: 14px;
-    color: #cacad1;
-}
-
-.header-right h2 {
-    margin: 0;
-    color: #e4e4e4;
-    font-size: 18px;
-}
-
-.header-right p {
-    margin: 2px 0;
 }
 
 /* Linha divisória */
