@@ -62,6 +62,23 @@ function calculateTotal() {
 
 
 async function downloadPDF() {
+    const logo = localStorage.getItem("logoEmpresa");
+
+    if (logo && logoAtiva) {
+        const logoWidth = 60;
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const x = (pageWidth - logoWidth) / 2;
+
+        doc.addImage(logo, "PNG", x, y, logoWidth, 0);
+        y += 30;
+    }
+
+    if (logo) {
+        // desenha logo
+    } else {
+        y += 10; // espaço mínimo
+    }
+
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF("p", "mm", "a4");
 
@@ -262,18 +279,17 @@ function buildPDFLayout() {
 //LOGO LOCALSTORAGE
 const logoInput = document.getElementById("logoEmpresa");
 
-if (logoInput) {
-    logoInput.addEventListener("change", () => {
-        const file = logoInput.files[0];
-        if (!file) return;
+logoInput.addEventListener("change", () => {
+    const file = logoInput.files[0];
+    if (!file) return;
 
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            localStorage.setItem("logoEmpresa", e.target.result);
-        };
-        reader.readAsDataURL(file);
-    });
-}
+    const reader = new FileReader();
+    reader.onload = e => {
+        localStorage.setItem("logoEmpresa", e.target.result);
+    };
+    reader.readAsDataURL(file);
+});
+
 
 
 window.addEventListener("DOMContentLoaded", () => {
