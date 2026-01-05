@@ -59,30 +59,25 @@ function calculateTotal() {
         total.toFixed(2).replace('.', ',');
 }
 
-
-
 async function downloadPDF() {
-    const logo = localStorage.getItem("logoEmpresa");
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF("p", "mm", "a4");
 
-    if (logo && logoAtiva) {
+    let y = 20;
+
+    // ===== LOGO DO CLIENTE =====
+    const logo = logoAtiva ? localStorage.getItem("logoEmpresa") : null;
+
+    if (logo) {
         const logoWidth = 60;
         const pageWidth = doc.internal.pageSize.getWidth();
         const x = (pageWidth - logoWidth) / 2;
 
         doc.addImage(logo, "PNG", x, y, logoWidth, 0);
         y += 30;
-    }
-
-    if (logo) {
-        // desenha logo
     } else {
-        y += 10; // espaço mínimo
+        y += 10;
     }
-
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF("p", "mm", "a4");
-
-    let y = 20;
 
     const totalTexto = document.getElementById("total").innerText;
 
@@ -91,14 +86,11 @@ async function downloadPDF() {
     const clienteEmail = document.getElementById("clienteEmail")?.value?.trim() || "-";
     const clienteTelefone = document.getElementById("clienteTelefone")?.value?.trim() || "-";
 
-
-
     // ===== TÍTULO =====
     doc.setFontSize(20);
     doc.setFont(undefined, "bold");
     doc.text("Orçamento de Produtos", 105, y, { align: "center" });
     y += 20;
-
 
     // ===== DADOS DO CLIENTE =====
     doc.setFontSize(14);
@@ -107,15 +99,6 @@ async function downloadPDF() {
 
     doc.setFontSize(11);
     doc.roundedRect(15, y, 180, 25, 5, 5);
-
-    const cliente = {
-        nome: clienteNome,
-        empresa: clienteEmpresa,
-        email: clienteEmail,
-        telefone: clienteTelefone
-    };
-
-
 
     doc.text(`Nome: ${clienteNome}`, 18, y + 6);
     doc.text(`Empresa: ${clienteEmpresa}`, 18, y + 12);
@@ -136,9 +119,9 @@ async function downloadPDF() {
         }
 
         const produto = row.children[0].querySelector("input").value || "Produto";
-        const qtd = row.children[1].querySelector("input").value;
-        const valor = row.children[2].querySelector("input").value;
-        const desconto = row.children[3].querySelector("input").value;
+        const qtd = row.children[1].querySelector("input").value || 0;
+        const valor = row.children[2].querySelector("input").value || 0;
+        const desconto = row.children[3].querySelector("input").value || 0;
         const subtotal = row.children[4].innerText;
 
         doc.roundedRect(15, y, 180, 20, 5, 5);
@@ -156,8 +139,6 @@ async function downloadPDF() {
         y = 20;
     }
 
-    y += 10;
-
     doc.setFillColor(109, 40, 217);
     doc.roundedRect(15, y, 180, 16, 6, 6, "F");
 
@@ -166,8 +147,7 @@ async function downloadPDF() {
     doc.text(`TOTAL: R$ ${totalTexto}`, 105, y + 11, { align: "center" });
 
     doc.setTextColor(0);
-    y += 22; //  espaço REAL após o total
-
+    y += 22;
 
     // ===== VALIDADE =====
     doc.setFontSize(11);
@@ -175,14 +155,11 @@ async function downloadPDF() {
     doc.text(`Responsável: ${assinaturaNome.value || "-"}`, 15, y + 12);
 
     const nomeDocumentoInput = document.getElementById("nomeDocumento")?.value?.trim();
-
     const nomeArquivo = nomeDocumentoInput
-        ? nomeDocumentoInput.replace(/[\\/:*?"<>|]/g, "") // remove caracteres inválidos
+        ? nomeDocumentoInput.replace(/[\\/:*?"<>|]/g, "")
         : `orcamento-${Date.now()}`;
 
     doc.save(`${nomeArquivo}.pdf`);
-
-
 }
 
 
