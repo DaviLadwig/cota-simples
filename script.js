@@ -298,28 +298,3 @@ document.getElementById("removerLogo").addEventListener("click", () => {
 
 
 document.getElementById("year").textContent = new Date().getFullYear();
-
-//LOGICA DO NOVO PDF
-
-document.getElementById("pdf-cliente").innerText =
-    document.getElementById("clienteNome").value;
-
-document.getElementById("pdf-total").innerText =
-    document.getElementById("total").innerText;
-
-const pdfItens = document.getElementById("pdf-itens");
-pdfItens.innerHTML = "";
-
-document.querySelectorAll("#productTable tbody tr").forEach(row => {
-    const produto = row.children[0].querySelector("input").value;
-    const subtotal = row.children[4].innerText;
-
-    pdfItens.innerHTML += `
-    <div class="pdf-card">
-      <strong>${produto}</strong>
-      <p>${subtotal}</p>
-    </div>
-  `;
-});
-
-html2pdf().from(document.getElementById("pdf-layout")).save("orcamento.pdf");
