@@ -241,6 +241,7 @@ input:focus {
 .pdf-logo {
     max-height: 60px;
     max-width: 200px;
+    padding: 50px;
     object-fit: contain;
 }
 
