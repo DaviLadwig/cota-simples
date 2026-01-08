@@ -214,6 +214,7 @@ function buildPDFLayout() {
             <div class="pdf-header">
                 ${logoURL ? `<img src="${logoURL}" class="pdf-logo">` : ""}
                 <h1>Orçamento de Produto/Serviço</h1>
+                 <div class="pdf-divider"></div>
             </div>
 
             <div class="pdf-section">
