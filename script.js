@@ -60,99 +60,19 @@ function calculateTotal() {
 }
 
 async function downloadPDF() {
+    buildPDFLayout(); // monta o HTML estilizado
+
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF("p", "mm", "a4");
 
-    let y = 20;
+    const pdfElement = document.getElementById("pdf-layout");
 
-    // ===== LOGO DO CLIENTE =====
-    const logo = logoAtiva ? localStorage.getItem("logoEmpresa") : null;
-
-    if (logo) {
-        const logoWidth = 60;
-        const pageWidth = doc.internal.pageSize.getWidth();
-        const x = (pageWidth - logoWidth) / 2;
-
-        doc.addImage(logo, "PNG", x, y, logoWidth, 0);
-        y += 30;
-    } else {
-        y += 10;
-    }
-
-    const totalTexto = document.getElementById("total").innerText;
-
-    const clienteNome = document.getElementById("clienteNome")?.value?.trim() || "-";
-    const clienteEmpresa = document.getElementById("clienteEmpresa")?.value?.trim() || "-";
-    const clienteEmail = document.getElementById("clienteEmail")?.value?.trim() || "-";
-    const clienteTelefone = document.getElementById("clienteTelefone")?.value?.trim() || "-";
-
-    // ===== TÍTULO =====
-    doc.setFontSize(20);
-    doc.setFont(undefined, "bold");
-    doc.text("Orçamento de Produtos", 105, y, { align: "center" });
-    y += 20;
-
-    // ===== DADOS DO CLIENTE =====
-    doc.setFontSize(14);
-    doc.text("Dados do Cliente", 15, y);
-    y += 6;
-
-    doc.setFontSize(11);
-    doc.roundedRect(15, y, 180, 25, 5, 5);
-
-    doc.text(`Nome: ${clienteNome}`, 18, y + 6);
-    doc.text(`Empresa: ${clienteEmpresa}`, 18, y + 12);
-    doc.text(`Email: ${clienteEmail}`, 110, y + 6);
-    doc.text(`Telefone: ${clienteTelefone}`, 110, y + 12);
-
-    y += 30;
-
-    // ===== PRODUTOS =====
-    doc.setFontSize(14);
-    doc.text("Itens do Orçamento", 15, y);
-    y += 6;
-
-    document.querySelectorAll("#productTable tbody tr").forEach(row => {
-        if (y > 260) {
-            doc.addPage();
-            y = 20;
-        }
-
-        const produto = row.children[0].querySelector("input").value || "Produto";
-        const qtd = row.children[1].querySelector("input").value || 0;
-        const valor = row.children[2].querySelector("input").value || 0;
-        const desconto = row.children[3].querySelector("input").value || 0;
-        const subtotal = row.children[4].innerText;
-
-        doc.roundedRect(15, y, 180, 20, 5, 5);
-        doc.setFontSize(11);
-        doc.text(produto, 18, y + 6);
-        doc.text(`Qtd: ${qtd} | Valor: R$ ${valor} | Desc: ${desconto}%`, 18, y + 12);
-        doc.text(subtotal, 170, y + 12, { align: "right" });
-
-        y += 24;
+    await doc.html(pdfElement, {
+        x: 0,
+        y: 0,
+        width: 210,
+        windowWidth: 900
     });
-
-    // ===== TOTAL =====
-    if (y > 250) {
-        doc.addPage();
-        y = 20;
-    }
-
-    doc.setFillColor(109, 40, 217);
-    doc.roundedRect(15, y, 180, 16, 6, 6, "F");
-
-    doc.setTextColor(255);
-    doc.setFontSize(14);
-    doc.text(`TOTAL: R$ ${totalTexto}`, 105, y + 11, { align: "center" });
-
-    doc.setTextColor(0);
-    y += 22;
-
-    // ===== VALIDADE =====
-    doc.setFontSize(11);
-    doc.text(`Validade: ${validadeOrcamento.value || "-"}`, 15, y + 6);
-    doc.text(`Responsável: ${assinaturaNome.value || "-"}`, 15, y + 12);
 
     const nomeDocumentoInput = document.getElementById("nomeDocumento")?.value?.trim();
     const nomeArquivo = nomeDocumentoInput
@@ -213,9 +133,9 @@ function buildPDFLayout() {
 
             <div class="pdf-header">
                 ${logoURL ? `<img src="${logoURL}" class="pdf-logo">` : ""}
-                <h1>Orçamento de Produto/Serviço</h1>
-                 <div class="pdf-divider"></div>
+                <h1 class="pdf-title">Orçamento de Produtos</h1>
             </div>
+
 
             <div class="pdf-section">
                 <h3>Dados do Cliente</h3>
