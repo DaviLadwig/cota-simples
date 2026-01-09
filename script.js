@@ -59,27 +59,27 @@ function calculateTotal() {
         total.toFixed(2).replace('.', ',');
 }
 
-async function downloadPDF() {
-    buildPDFLayout(); // monta o HTML estilizado
+function downloadPDF() {
+    buildPDFLayout(); // monta o HTML
 
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF("p", "mm", "a4");
+    const element = document.getElementById("pdf-layout");
 
-    const pdfElement = document.getElementById("pdf-layout");
+    const opt = {
+        margin: 10,
+        filename: `orcamento-${Date.now()}.pdf`,
+        image: { type: "jpeg", quality: 0.98 },
+        html2canvas: {
+            scale: 2,
+            useCORS: true
+        },
+        jsPDF: {
+            unit: "mm",
+            format: "a4",
+            orientation: "portrait"
+        }
+    };
 
-    await doc.html(pdfElement, {
-        x: 0,
-        y: 0,
-        width: 210,
-        windowWidth: 900
-    });
-
-    const nomeDocumentoInput = document.getElementById("nomeDocumento")?.value?.trim();
-    const nomeArquivo = nomeDocumentoInput
-        ? nomeDocumentoInput.replace(/[\\/:*?"<>|]/g, "")
-        : `orcamento-${Date.now()}`;
-
-    doc.save(`${nomeArquivo}.pdf`);
+    html2pdf().set(opt).from(element).save();
 }
 
 
@@ -171,6 +171,9 @@ function buildPDFLayout() {
             </div>
 
         </div>
+
+        <div id="pdf-layout" style="display:none"></div>
+
     `;
 }
 
