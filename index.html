@@ -19,6 +19,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
 
+
 </head>
 
 <body>
@@ -58,7 +59,7 @@
     <!--NOME DO ARQUIVO-->
     <div class="client-section">
         <h3>Documento <span>(opcional)</span></h3>
-        <input type="text" id="nomeDocumento" placeholder="Ex: Orçamento - Padaria X">
+        <input type="text" id="nomeDocumento" placeholder="Ex: Orçamento - Loja X">
     </div>
 
 
@@ -100,7 +101,7 @@
     <!--ORÇAMENTO-->
     <hr class="divider">
 
-    <div class="container" id="pdf-content">
+    <div class="container" id="orcamento-form">
         <h1>Orçamento</h1>
 
         <table class="table" id="productTable">
@@ -133,9 +134,10 @@
                     <span>Total</span>
                     <strong>R$ <span id="total">0,00</span></strong>
                 </div>
-                <button onclick="downloadPDF()">Baixar PDF</button>
-                Baixar PDF
+                <button class="btn btn-primary" onclick="gerarPDF()">
+                    Baixar PDF
                 </button>
+
 
             </div>
         </div>
@@ -161,6 +163,36 @@
         </div>
     </section>
 
+    <div id="pdf-area" class="pdf-hidden">
+        <div class="pdf-page">
+            <div class="pdf-header">
+                <img id="pdf-logo" class="pdf-logo">
+                <h1>Orçamento de serviço/produto</h1>
+            </div>
+
+            <div class="pdf-section">
+                <h3>Dados do Cliente</h3>
+                <div id="pdf-cliente"></div>
+            </div>
+
+            <div class="pdf-section">
+                <h3>Itens</h3>
+                <div id="pdf-produtos"></div>
+            </div>
+
+            <div class="pdf-total">
+                TOTAL: R$ <span id="pdf-total"></span>
+            </div>
+
+            <div class="pdf-footer">
+                <p>Validade: <span id="pdf-validade"></span></p>
+                <p>Responsável: <span id="pdf-responsavel"></span></p>
+            </div>
+        </div>
+    </div>
+
+
+
 
     <footer class="app-footer">
         <p>
@@ -169,53 +201,19 @@
         </p>
     </footer>
 
-    <!--PDF-->
-    <div id="pdf-layout"></div>
-    <div class="pdf-page">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
-        <header class="pdf-header">
-            <img src="LOGO" class="pdf-logo">
-            <h1>Orçamento de Produtos</h1>
-            <span class="pdf-subtitle">Cotação válida conforme dados abaixo</span>
-        </header>
-
-        <section class="pdf-section">
-            <h3>Dados do Cliente</h3>
-            <div class="pdf-info-grid">
-                <!-- infos -->
-            </div>
-        </section>
-
-        <section class="pdf-section">
-            <h3>Itens do Orçamento</h3>
-            <div class="pdf-items">
-                <!-- cards -->
-            </div>
-        </section>
-
-        <section class="pdf-total">
-            TOTAL: R$ 0,00
-        </section>
-
-        <footer class="pdf-footer">
-            Validade • Responsável
-        </footer>
-
-    </div>
-
-
-
-    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="script.js"></script>
+
     <script src="splash.js"></script>
-    <div id="pdf-layout" class="pdf-render-area"></div>
 
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('sw.js');
         }
     </script>
+
 
 
 </body>
