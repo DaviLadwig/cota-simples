@@ -24,12 +24,27 @@ function addRow() {
     const row = document.createElement("tr");
 
     row.innerHTML = `
-        <td><input type="text" data-label="Produto / Serviço"></td>
-        <td><input type="number" data-label="Qtd"></td>
-        <td><input type="number"  data-label="Valor Unitário"></td>
-        <td><input type="number" data-label="Desconto (%)"></td>
-        <td class="subtotal" data-label="Subtotal">R$ 0,00</td>
-        <td>
+        <td data-label="Produto / Serviço">
+            <input type="text">
+        </td>
+
+        <td data-label="Qtd">
+            <input type="number">
+        </td>
+
+        <td data-label="Valor Unitário">
+            <input type="number">
+        </td>
+
+        <td data-label="Desconto (%)">
+            <input type="number">
+        </td>
+
+        <td data-label="Subtotal" class="subtotal">
+            R$ 0,00
+        </td>
+
+        <td data-label="Ação">
             <button class="btn btn-danger" onclick="removeRow(this)">✕</button>
         </td>
     `;
@@ -40,6 +55,7 @@ function addRow() {
 
     tbody.appendChild(row);
 }
+
 
 function removeRow(btn) {
     btn.closest("tr").remove();
