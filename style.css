@@ -691,3 +691,50 @@ REPSONSIVIDADE CELULAR
         transform: scale(1);
     }
 }
+
+/* =========================
+   RESPONSIVO - ORÇAMENTO
+========================= */
+@media (max-width: 768px) {
+
+    #productTable thead {
+        display: none;
+    }
+
+    #productTable,
+    #productTable tbody,
+    #productTable tr,
+    #productTable td {
+        display: block;
+        width: 100%;
+    }
+
+    #productTable tr {
+        background: #fafafa;
+        border-radius: 10px;
+        padding: 12px;
+        margin-bottom: 12px;
+    }
+
+    #productTable td {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+    }
+
+    #productTable td::before {
+        content: attr(data-label);
+        font-size: 12px;
+        font-weight: 600;
+        color: #666;
+        margin-bottom: 4px;
+    }
+
+    #productTable input {
+        width: 100%;
+    }
+
+    .btn-danger {
+        align-self: flex-end;
+    }
+}

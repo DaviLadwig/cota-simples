@@ -24,11 +24,11 @@ function addRow() {
     const row = document.createElement("tr");
 
     row.innerHTML = `
-        <td><input type="text"></td>
-        <td><input type="number"></td>
-        <td><input type="number"></td>
-        <td><input type="number"></td>
-        <td class="subtotal">R$ 0,00</td>
+        <td><input type="text" data-label="Produto / Serviço"></td>
+        <td><input type="number" data-label="Qtd"></td>
+        <td><input type="number"  data-label="Valor Unitário"></td>
+        <td><input type="number" data-label="Desconto (%)"></td>
+        <td class="subtotal" data-label="Subtotal">R$ 0,00</td>
         <td>
             <button class="btn btn-danger" onclick="removeRow(this)">✕</button>
         </td>
