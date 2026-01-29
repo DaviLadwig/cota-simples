@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setTimeout(() => {
         splash.style.opacity = "0";
-        splash.style.transition = "opacity 0.5s ease";
+        splash.style.transition = "opacity 3.5s ease";
 
         setTimeout(() => {
             splash.remove();
