@@ -115,11 +115,23 @@ async function gerarPDF() {
     const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
 
     pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
-    pdf.save(`orcamento-${Date.now()}.pdf`);
+
+    // ===== NOME DO ARQUIVO =====
+    let nomeArquivo = document.getElementById("nomeDocumento").value;
+
+    if (!nomeArquivo || nomeArquivo.trim() === "") {
+        nomeArquivo = "orcamento";
+    }
+
+    nomeArquivo = nomeArquivo.replace(/[\\/:*?"<>|]/g, "");
+
+    // SALVA APENAS UMA VEZ
+    pdf.save(nomeArquivo + ".pdf");
 
     // esconde novamente
     pdfArea.style.opacity = "0";
 }
+
 
 function preencherPDF() {
     // Preenche os dados do cliente
